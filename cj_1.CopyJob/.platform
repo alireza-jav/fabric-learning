@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "CopyJob",
+    "displayName": "cj_1"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "df937d49-9aae-a282-4615-ef7800783968"
+  }
+}

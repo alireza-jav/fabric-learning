@@ -1,0 +1,158 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "85834cf6-d7cc-b1e4-478e-f7aad2035756",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric",
+          "executeMashupQueriesOnly": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 30,
+          "secureInput": true,
+          "secureOutput": true,
+          "exponentialRetry": true,
+          "maxRetryIntervalInSeconds": 40
+        },
+        "name": "DataFlow 1",
+        "description": "just a test",
+        "dependsOn": []
+      },
+      {
+        "type": "Office365Email",
+        "typeProperties": {
+          "body": "<p>This is a test for status of the <br>\nWS ID @{pipeline().DataFactory} </p>\n<p>Pipeline ID @{pipeline().Pipeline}&nbsp;</p>\n<p>Run ID @{pipeline().RunId}&nbsp;</p>\n<p>Source @{pipeline()?.TriggerEvent?.Source}&nbsp;</p>\n<p>Subject @{pipeline()?.TriggerEvent?.Subject}&nbsp;</p>\n<p>Type @{pipeline()?.TriggerEvent?.Type}</p>",
+          "to": "alikabk@gmail.com",
+          "subject": "Fabric_Expriment",
+          "importance": "Low"
+        },
+        "externalReferences": {
+          "connection": "163435d2-78a6-4329-b1aa-1b4e176b16b5"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 2,
+          "retryIntervalInSeconds": 30,
+          "secureInput": true,
+          "secureOutput": true
+        },
+        "name": "email_notify_success",
+        "description": "test for sending email.",
+        "dependsOn": [
+          {
+            "activity": "DataFlow 1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokeCopyJob",
+        "typeProperties": {
+          "copyJobId": "df937d49-9aae-a282-4615-ef7800783968",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "externalReferences": {
+          "connection": "78055639-e93d-4cc8-b1ca-b219b9bdc214"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "cj_lk_to_wh",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "DimProduct"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "lh_1",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "42c44afb-42e1-a4c9-4786-3f2c5ab3a860",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "externalReferences": {
+                    "connection": "facc2319-987e-48d6-98f6-945ab8be6eb7"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "tableOption": "autoCreate",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "DimProductCopy"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_1",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "d6bb49af-377d-b608-4644-3665b6f891d1",
+                    "endpoint": "gibpnm2b4rfu5isqiexoqms6we-vuaal7luafnetn7waailehctry.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "bbe2e5c5-1784-4c7c-b20b-7377a3a3a6aa"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true,
+          "enableSkipIncompatibleRow": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "cd_lh_wh",
+        "dependsOn": []
+      }
+    ]
+  }
+}

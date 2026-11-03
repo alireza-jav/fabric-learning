@@ -1,0 +1,73 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "Dataflow 1",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "eed37bb4-8036-43fc-9121-a19485e81ca8",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "DimProduct": {
+      "queryId": "60b97584-02e3-4b8b-8ace-b2d23dd67a57",
+      "queryName": "DimProduct",
+      "loadEnabled": false
+    },
+    "DimProductCategory": {
+      "queryId": "bdc678fd-dc66-464e-899a-92e9fa5a83f9",
+      "queryName": "DimProductCategory",
+      "loadEnabled": false
+    },
+    "DimProductSubcategory": {
+      "queryId": "19574d5b-3191-4af0-a3c7-930181211a09",
+      "queryName": "DimProductSubcategory",
+      "loadEnabled": false
+    },
+    "FactInternetSales": {
+      "queryId": "ffcbee8e-817f-42c8-b0b9-f579eeab661e",
+      "queryName": "FactInternetSales",
+      "loadEnabled": false
+    },
+    "DimProduct_DataDestination": {
+      "queryId": "559c39ed-a83e-4aae-bafe-a586d3fc729d",
+      "queryName": "DimProduct_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "DimProductCategory_DataDestination": {
+      "queryId": "2c2e10b1-4f7e-46b2-b7b7-dbcfbe01e157",
+      "queryName": "DimProductCategory_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "DimProductSubcategory_DataDestination": {
+      "queryId": "eedcd8bb-daf7-4129-8a4c-db8854de0522",
+      "queryName": "DimProductSubcategory_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "FactInternetSales_DataDestination": {
+      "queryId": "8ed07f6b-4f8b-4829-b20d-88d2afd737f3",
+      "queryName": "FactInternetSales_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"73542e6c-c572-4c6c-b8ac-5fa0e0210d78\",\"DatasourceId\":\"facc2319-987e-48d6-98f6-945ab8be6eb7\"}"
+    },
+    {
+      "path": "https://idodata.com/wp-content/uploads/2025/08/FabricData.xlsx",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"73542e6c-c572-4c6c-b8ac-5fa0e0210d78\",\"DatasourceId\":\"61405361-125a-4455-991a-d26b6f93a40e\"}"
+    }
+  ]
+}
